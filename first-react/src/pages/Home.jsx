@@ -1,20 +1,24 @@
-import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { getProducts } from "../data"
+import Productcard from "../components/Productcard";
 
-export default function homepage() {
-    const { user } = useContext(AuthContext);
-
-    return (
-        <main className="home-page" style={{
-            padding:"0 1.5rem"
-        }}>
-            <h1>Home</h1>
-            {user.isAuth ? (
-                <p>Welcome back, {user.name}!</p>
-            ) : (
-                <p>You are not logged in.Please go to the <Link to="/login">Login</Link> page to log back in.</p>
-            )}
-        </main>
-    )
+export default function Home() {
+  const products = getProducts();
+  return (
+    <div className="page">
+        <div className="home-hero">
+            <h1 className="home-title">Welcome to AccraHub</h1>
+            <p className="home-subtitle">
+                Discover amazing products at great prices
+            </p>
+        </div>
+            <div className="container">
+                <h2 className="page-title">Our Products</h2>
+                <div className="product-grid">
+                    {products.map((product) => (
+                        <Productcard key={product.id} product={product} />
+                    ))}
+                </div>
+            </div>
+    </div>
+  )
 }

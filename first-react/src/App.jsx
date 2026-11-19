@@ -1,26 +1,26 @@
-import { Route, Routes } from "react-router-dom";
-import { useState } from "react";
-import { AuthProvider } from "./context/AuthContext";
-import Navbar from "./components/Navbar";
-import HomePage from "./pages/Home";
-import LoginPage from "./pages/Login";
-import ProfilePage from "./pages/Profile";
+import { Routes, Route } from "react-router-dom"
+import Home from "./pages/home"
+import Auth from "./pages/auth"
+import Checkout from "./pages/checkout"
+import Navbar from "./components/Navbar"
+import ProductDetails from "./pages/product"
+import { AuthProvider } from "./context/AuthContext"
+import { CartProvider } from "./context/CartContext"
 
-export default function App() {
+export default function App(){
     return(
-        <div style={{
-            backgroundColor:"#262525",
-            minHeight:"100vh",
-            color:"#e5e2e2",
-            }}>
-            
-            <AuthProvider>
+        <div className="app">
+            <AuthProvider >
+                <CartProvider>
             <Navbar />
             <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/auth/:mode" element={<Auth />} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/products/:id" element={<ProductDetails />} />
             </Routes>
+                </CartProvider>
             </AuthProvider>
         </div>
     )
